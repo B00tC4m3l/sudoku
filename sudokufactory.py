@@ -1,4 +1,6 @@
-maps = {
+import random
+
+mapids = {
     "EASY_1":[
         [1, 0, 0, 4, 8, 9, 0, 0, 6],
         [7, 3, 0, 0, 0, 0, 0, 4, 0],
@@ -36,10 +38,19 @@ maps = {
 
 
 def generateHard():
-    pass
+    hardmaps = list(filter(lambda x : "HARD" in x, mapids.keys()))
+    print(hardmaps)
+    print(hardmaps[random.randint(0, len(hardmaps)-1)])
+    return hardmaps[random.randint(0, len(hardmaps)-1)]
 
 def generateEasy():
-    pass
+    hardmaps = list(filter(lambda x : "MEDIUM" in x, mapids.keys()))
+    return hardmaps[random.randint(0, len(hardmaps)-1)]
 
 def generateMedium():
-    pass
+    hardmaps = list(filter(lambda x : "HARD" in x, mapids.keys()))
+    return hardmaps[random.randint(0, len(hardmaps)-1)]
+
+
+if __name__ == "__main__":
+    print(generateHard())

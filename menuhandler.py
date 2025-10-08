@@ -1,6 +1,8 @@
 import curses 
 import sudokuplayer
 import savehandler
+import sudoku
+import sudokufactory
 
 sudoku_art = [
     "   *      //   *   ||   ||      || *  ||      ||       ||  //   *  ||==//",
@@ -121,13 +123,14 @@ def printGameStartOptions(screen):
             choice += 1
         elif key in [curses.KEY_ENTER, 10, 13]:
             if choice == 0:
-                sudokuplayer = sudokuplayer()
-                sudoku, willsave, completed = sudokuplayer.startGame(difficulties[choice_difficulty], password, playerName, screen)
-                if willsave and not completed:
-                    savehandler.saveGame(sudoku)
-                elif completed:
-                    savehandler.saveScore(sudoku)
-
+                sudokugame = None
+                if choice_difficulty == 0:
+                    sudokugame = sudoku.Sudoku(0, "EASY", playerName, password)
+                if choice_difficulty == 1:
+                    sudokugame = sudoku.Sudoku(0, "MEDIUM", playerName, password)
+                if choice_difficulty == 2:
+                    sudokugame = sudoku.Sudoku(0, "HARD", playerName, password)
+                sudokuplayer.playGame(screen, sudokugame)
             elif choice == 1:
                 choice_difficulty = printDifficultySelector(screen)
                 pass
